@@ -3,9 +3,9 @@ import requests
 from urllib.parse import urlencode
 from .models import AccessToken
 
-ZENDESK_SUBDOMAIN = "self4077"
-ZENDESK_CLIENT_ID = "zdg-client2"
-ZENDESK_CLIENT_SECRET = "a8c0ffb1c571af9fec7c2f329f494f6a02b1bb56a6946ad0ef3dbe671fdd08e8"
+ZENDESK_SUBDOMAIN = "self7550"
+ZENDESK_CLIENT_ID = "zdg-test1"
+ZENDESK_CLIENT_SECRET = "ca6ccdadc476961c18e4921c110115fdf1fc5750bc9d39f2d3e57dedd6501931"
 REDIRECT_URI = "http://localhost:8000/zendesk/oauth/callback"
 
 def zendesk_oauth_connect(request: HttpRequest):
@@ -61,11 +61,13 @@ def zendesk_oauth_callback(request: HttpRequest):
     token.save()
     print(token_response_json)
 
-    try:
-        from airflow_integration.integration.task import create_fetch_task
-        create_fetch_task(None, ZENDESK_SUBDOMAIN, token.token)
-    except Exception as e:
-        print(e)
+    # try:
+    #     from airflow_integration.integration.task import create_fetch_task
+    #     task = create_fetch_task(None, ZENDESK_SUBDOMAIN)
+    #     print(task, " Executing...")
+        
+    # except Exception as e:
+    #     print(e)
 
     # Return the access token in a JSON response
     return JsonResponse({"access_token": access_token})
